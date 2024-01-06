@@ -1,19 +1,20 @@
 const TRAVEL_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
-const TimeShorts = {
-  DAY: 'D',
-  HOUR: 'H',
-  MINUTE: 'M',
-};
-
-const MillisecondsInMinute = 60000;
-
-const SecondsInMinute = 60;
-
-const HoursInDay = 24;
 
 const DateFormats = {
-  full: 'YYYY-MM-D',
-  monthDay: 'MMM D',
-  hours: 'HH:mm'
+  DAY: 'DD',
+  MONTH: 'MMM',
+  MONTH_DAY: 'MMM DD',
+  DAY_MONTH: 'DD MMM',
+  TIME: 'HH:mm',
+  DAY_TIME: 'DD/MM/YY HH:mm',
+  DAYS: 'DD[D]',
+  HOURS: 'HH[H]',
+  MINUTES: 'mm[M]'
 };
-export { TRAVEL_TYPES, TimeShorts, DateFormats, MillisecondsInMinute, SecondsInMinute, HoursInDay };
+
+const CancelButtonNames = {
+  DELETE: 'Delete',
+  CANCEL: 'Cancel'
+};
+
+export { TRAVEL_TYPES, DateFormats, CancelButtonNames };

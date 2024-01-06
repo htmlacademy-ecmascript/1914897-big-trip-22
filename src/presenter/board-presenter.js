@@ -22,7 +22,7 @@ export default class BoardPresenter {
 
     render(this.sortComponent, this.container);
     render(this.listComponent, this.container);
-    render(new EditForm(), this.listComponent.getElement());
+    render(new EditForm(points, destinations, offers), this.listComponent.getElement());
 
     for (const point of points) {
       render (new PointView(point, destinations, offers), this.listComponent.getElement());
