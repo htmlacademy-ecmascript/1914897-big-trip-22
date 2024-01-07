@@ -5,24 +5,27 @@ import ListView from '../view/list-view.js';
 import PointView from '../view/point-view.js';
 import SortView from '../view/sort-view.js';
 
-const LIMIT_POINT = 3;
-
 export default class BoardPresenter {
   sortComponent = new SortView();
   createFormComponent = new CreateForm();
   listComponent = new ListView();
 
-  constructor({container}) {
+  constructor({container, pointModel}) {
     this.container = container;
+    this.pointModel = pointModel;
   }
 
   init() {
+    const points = this.pointModel.getPoints();
+    const destinations = this.pointModel.getDestinations();
+    const offers = this.pointModel.getOffers();
+
     render(this.sortComponent, this.container);
     render(this.listComponent, this.container);
-    render(new EditForm(), this.listComponent.getElement());
+    render(new EditForm(points, destinations, offers), this.listComponent.getElement());
 
-    for (let i = 0; i < LIMIT_POINT; i++) {
-      render (new PointView, this.listComponent.getElement());
+    for (const point of points) {
+      render (new PointView(point, destinations, offers), this.listComponent.getElement());
     }
   }
 }
