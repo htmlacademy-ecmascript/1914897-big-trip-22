@@ -1,6 +1,6 @@
-import { createElement } from '../render.js';
 import { formatDate, getDatesDifference, getDatesDuration } from '../utils.js';
 import { DateFormats } from '../const.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createOfferTemplate({title, price}) {
   return (
@@ -63,25 +63,27 @@ function createListTemplate(point, destinations, offers) {
             </li>`;
 }
 
-export default class PointView {
-  constructor(point, destinations, offers) {
-    this.point = point;
-    this.destinations = destinations;
-    this.offers = offers;
+export default class PointView extends AbstractView {
+  #point = [];
+  #offers = [];
+  #destinations = [];
+  #handleButtonClick = null;
+
+  constructor({point, offers, destinations, onButtonClick}) {
+    super();
+    this.#point = point;
+    this.#offers = offers;
+    this.#destinations = destinations;
+    this.#handleButtonClick = onButtonClick;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#clickButtonHandler);
   }
 
-  getTemplate() {
-    return createListTemplate(this.point, this.destinations, this.offers);
+  get template() {
+    return createListTemplate(this.#point, this.#destinations, this.#offers);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
+  #clickButtonHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleButtonClick();
+  };
 }
