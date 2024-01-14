@@ -4,6 +4,7 @@ import PointView from '../view/point-view.js';
 import SortView from '../view/sort-view.js';
 import InfoTripView from '../view/info_trip-view.js';
 import FilterView from '../view/filter-view.js';
+import EmptyView from '../view/empty-view.js';
 import { render, RenderPosition, replace } from '../framework/render.js';
 
 
@@ -31,11 +32,7 @@ export default class BoardPresenter {
     render(new InfoTripView(), this.#tripInfoElement, RenderPosition.AFTERBEGIN);
     render(new FilterView(), this.#filterElement);
     render(new SortView(), this.#contentTripElement);
-    render(this.#listComponent, this.#contentTripElement);
-
-    this.#points.forEach((point) => {
-      this.#renderPoint(point);
-    });
+    this.#renderBoard();
   }
 
   #renderPoint(point) {
@@ -76,5 +73,15 @@ export default class BoardPresenter {
     }
 
     render(pointComponent, this.#listComponent.element);
+  }
+
+  #renderBoard() {
+    if (!this.#points.length) {
+      render(new EmptyView(), this.#contentTripElement);
+    }
+    render(this.#listComponent, this.#contentTripElement);
+    this.#points.forEach((point) => {
+      this.#renderPoint(point);
+    });
   }
 }
