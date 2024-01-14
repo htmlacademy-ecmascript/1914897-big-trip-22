@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { DateFormats, TRAVEL_TYPES, CancelButtonNames } from '../const.js';
-import { formatDate } from '../utils.js';
+import { formatDate } from '../utils/utils.js';
 
 function createTypeListTemplate(pointType, pointId) {
   return TRAVEL_TYPES.map((type) => {

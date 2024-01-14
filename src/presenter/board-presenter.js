@@ -6,6 +6,7 @@ import InfoTripView from '../view/info_trip-view.js';
 import FilterView from '../view/filter-view.js';
 import EmptyView from '../view/empty-view.js';
 import { render, RenderPosition, replace } from '../framework/render.js';
+import { generateFilter } from '../mock/filter.js';
 
 
 export default class BoardPresenter {
@@ -17,6 +18,7 @@ export default class BoardPresenter {
   #points = [];
   #offers = [];
   #destinations = [];
+  #filters = [];
 
 
   constructor({ pointModel }) {
@@ -27,10 +29,11 @@ export default class BoardPresenter {
     this.#points = [...this.#pointModel.points];
     this.#destinations = [...this.#pointModel.destinations];
     this.#offers = [...this.#pointModel.offers];
+    this.#filters = generateFilter(this.#points);
 
 
     render(new InfoTripView(), this.#tripInfoElement, RenderPosition.AFTERBEGIN);
-    render(new FilterView(), this.#filterElement);
+    render(new FilterView({filters: this.#filters}), this.#filterElement);
     render(new SortView(), this.#contentTripElement);
     this.#renderBoard();
   }
@@ -74,6 +77,7 @@ export default class BoardPresenter {
 
     render(pointComponent, this.#listComponent.element);
   }
+
 
   #renderBoard() {
     if (!this.#points.length) {
