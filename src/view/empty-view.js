@@ -1,14 +1,11 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
 function createListTemplate() {
-  return `
-  <ul class="trip-events__list">
-  </ul>`;
+  return '<p class="trip-events__msg">Click New Event to create your first point</p>';
 }
 
-export default class ListView extends AbstractView {
+export default class EmptyView extends AbstractView {
   get template() {
     return createListTemplate();
   }
 }
-

@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { DateFormats, TRAVEL_TYPES, CancelButtonNames } from '../const.js';
 import { formatDate } from '../utils.js';
 
@@ -116,7 +116,7 @@ function createEditFormTemplate(point, destinations, offers) {
 
     <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
     <button class="event__reset-btn" type="reset">${pointId === 0 ? CancelButtonNames.CANCEL : CancelButtonNames.DELETE}</button>
-    < ${pointId !== 0 ? `<button class="event__rollup-btn" type="button">
+    <${pointId !== 0 ? `<button class="event__rollup-btn" type="button">
     <span class="visually-hidden">Open event</span>
   </button>` : ''}
   </header>
@@ -126,28 +126,37 @@ function createEditFormTemplate(point, destinations, offers) {
   </section>
 </form>
 </li>`;
-
 }
 
-export default class EditForm {
-  constructor(point, destinations, offers) {
-    this.point = point;
-    this.destinations = destinations;
-    this.offers = offers;
+export default class EditForm extends AbstractView {
+  #point = [];
+  #offers = [];
+  #destinations = [];
+  #handleButtonClick = null;
+  #handleFormSubmit = null;
+
+  constructor({point, destinations, offers, onButtonClick, onFormSubmit}) {
+    super();
+    this.#point = point;
+    this.#offers = offers;
+    this.#destinations = destinations;
+    this.#handleButtonClick = onButtonClick;
+    this.#handleFormSubmit = onFormSubmit;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#clickButtonHandler);
+    this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
   }
 
-  getTemplate() {
-    return createEditFormTemplate(this.point, this.destinations, this.offers);
+  get template() {
+    return createEditFormTemplate(this.#point, this.#destinations, this.#offers);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
+  #clickButtonHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleButtonClick();
+  };
 
-  removeElement() {
-    this.element = null;
-  }
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleFormSubmit();
+  };
 }

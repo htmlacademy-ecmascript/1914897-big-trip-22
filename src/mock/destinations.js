@@ -5,7 +5,7 @@ const destinations = [
     'name': 'Chamonix',
     'pictures': [
       {
-        'src': 'http://picsum.photos/300/200?r=0.0762563005163317',
+        'src': 'https://anapa-resort.ru/wp-content/uploads/6/e/4/6e4c2e73c4e726a15a75258886df5539.jpeg',
         'description': 'Chamonix parliament building',
       }]
   },
@@ -15,7 +15,7 @@ const destinations = [
     'name': 'Moscow',
     'pictures': [
       {
-        'src': 'http://picsum.photos/300/200?r=0.0762563005163318',
+        'src': '',
         'description': 'lorem',
       }]
   },
