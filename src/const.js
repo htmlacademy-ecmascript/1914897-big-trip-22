@@ -24,4 +24,14 @@ const FilterType = {
   PAST: 'past',
 };
 
-export { TRAVEL_TYPES, DateFormats, CancelButtonNames, FilterType };
+const SortType = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer',
+};
+
+const DisabledSortTypes = ['event', 'offer'];
+
+export { TRAVEL_TYPES, DateFormats, CancelButtonNames, FilterType, SortType, DisabledSortTypes};
