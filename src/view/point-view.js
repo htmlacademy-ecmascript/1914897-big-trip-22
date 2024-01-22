@@ -1,4 +1,4 @@
-import { formatDate, getDatesDifference, getDatesDuration } from '../utils.js';
+import { formatDate, getDatesDifference, getDatesDuration } from '../utils/utils.js';
 import { DateFormats } from '../const.js';
 import AbstractView from '../framework/view/abstract-view.js';
 

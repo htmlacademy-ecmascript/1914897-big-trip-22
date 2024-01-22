@@ -20,4 +20,16 @@ function getDatesDuration(difference) {
   return dayjs.duration(difference);
 }
 
-export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration };
+function isFuture(dateFrom) {
+  return dayjs().isBefore(dayjs(dateFrom));
+}
+
+function isPast(dateTo) {
+  return dayjs().isAfter(dayjs(dateTo));
+}
+
+function isPresent(dateFrom, dateTo) {
+  return dayjs().isAfter(dayjs(dateFrom)) && dayjs().isBefore(dayjs(dateTo));
+}
+
+export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration, isFuture, isPast, isPresent };

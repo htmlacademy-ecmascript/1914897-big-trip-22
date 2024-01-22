@@ -17,4 +17,21 @@ const CancelButtonNames = {
   CANCEL: 'Cancel'
 };
 
-export { TRAVEL_TYPES, DateFormats, CancelButtonNames };
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PRESENT: 'present',
+  PAST: 'past',
+};
+
+const SortType = {
+  DAY: 'day',
+  EVENT: 'event',
+  TIME: 'time',
+  PRICE: 'price',
+  OFFER: 'offer',
+};
+
+const DisabledSortTypes = ['event', 'offer'];
+
+export { TRAVEL_TYPES, DateFormats, CancelButtonNames, FilterType, SortType, DisabledSortTypes};

@@ -1,4 +1,4 @@
-import { getRandomNumber } from '../utils.js';
+import { getRandomNumber } from '../utils/utils.js';
 
 const points = [
   {
@@ -18,7 +18,7 @@ const points = [
   {
     'id': 'f4b62099-293f-4c3d-a702-94eec4a2809c',
     'basePrice': getRandomNumber(1500),
-    'dateFrom': '2019-03-19T10:30',
+    'dateFrom': '2024-03-19T10:30',
     'dateTo': '2019-03-20T11:00',
     'destination': 'bfa5cb75-a1fe-4b77-a83c-0e528e910e05',
     'isFavorite': true,
