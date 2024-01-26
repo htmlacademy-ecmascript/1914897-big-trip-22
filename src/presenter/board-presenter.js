@@ -7,6 +7,7 @@ import { render, RenderPosition } from '../framework/render.js';
 import { generateFilter } from '../mock/filter.js';
 import { generateSort } from '../mock/sort.js';
 import PointPresenter from './point-presenter.js';
+import { updateItem } from '../utils/utils.js';
 
 
 export default class BoardPresenter {
@@ -19,6 +20,7 @@ export default class BoardPresenter {
   #offers = [];
   #destinations = [];
   #filters = [];
+  #pointPresenters = new Map();
   #sortItems = [];
 
 
@@ -41,8 +43,9 @@ export default class BoardPresenter {
   }
 
   #renderPoint(point, offers, destinations) {
-    const pointPresenter = new PointPresenter({listComponent: this.#listComponent});
+    const pointPresenter = new PointPresenter({listComponent: this.#listComponent, handlePointChange: this.#handlePointChange});
     pointPresenter.init(point, offers, destinations);
+    this.#pointPresenters.set(point.id, pointPresenter);
   }
 
   #renderBoard() {
@@ -53,5 +56,15 @@ export default class BoardPresenter {
     this.#points.forEach((point) => {
       this.#renderPoint(point, this.#offers, this.#destinations);
     });
+  }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#points = updateItem(this.#points, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint, this.#offers, this.#destinations);
+  };
+
+  #clearList() {
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
   }
 }

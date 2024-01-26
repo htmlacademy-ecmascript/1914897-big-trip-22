@@ -32,4 +32,8 @@ function isPresent(dateFrom, dateTo) {
   return dayjs().isAfter(dayjs(dateFrom)) && dayjs().isBefore(dayjs(dateTo));
 }
 
-export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration, isFuture, isPast, isPresent };
+function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
+
+export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration, isFuture, isPast, isPresent, updateItem };

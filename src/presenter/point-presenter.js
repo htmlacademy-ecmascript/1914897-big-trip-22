@@ -1,4 +1,4 @@
-import { render, replace } from '../framework/render.js';
+import { render, replace, remove } from '../framework/render.js';
 import PointView from '../view/point-view';
 import EditForm from '../view/edit_form-view';
 
@@ -9,19 +9,28 @@ export default class PointPresenter {
   #point = null;
   #offers = [];
   #destinations = [];
+  #handlePointChange = null;
 
-  constructor({ listComponent }) {
+  constructor({ listComponent, handlePointChange }) {
     this.#listComponent = listComponent;
+    this.#handlePointChange = handlePointChange;
   }
 
   init(point, offers, destinations) {
     this.#point = point;
     this.#offers = offers;
     this.#destinations = destinations;
+
+    const prevPointComponent = this.#pointComponent;
+    const prevEditComponent = this.#editComponent;
+
     this.#pointComponent = new PointView({
       point: point, offers: this.#offers, destinations: this.#destinations, onButtonClick: () => {
         this.#replacePointToForm();
         document.addEventListener('keydown', this.#escKeyDownHandler);
+      },
+      onFavoriteClick: () => {
+        this.#handleFavoriteClick();
       }
     });
     this.#editComponent = new EditForm({
@@ -35,7 +44,25 @@ export default class PointPresenter {
         document.removeEventListener('keydown', this.#escKeyDownHandler);
       }
     });
-    render(this.#pointComponent, this.#listComponent.element);
+
+    if (prevPointComponent === null || prevEditComponent === null) {
+      render(this.#pointComponent, this.#listComponent.element);
+      return;
+    }
+    if (this.#listComponent.element.contains(prevPointComponent.element)) {
+      replace(this.#pointComponent, prevPointComponent);
+    }
+    if (this.#listComponent.element.contains(prevEditComponent.element)) {
+      replace(this.#editComponent, prevEditComponent);
+    }
+
+    remove(prevPointComponent);
+    remove(prevEditComponent);
+  }
+
+  destroy() {
+    remove(this.#pointComponent);
+    remove(this.#editComponent);
   }
 
   #escKeyDownHandler(evt) {
@@ -52,6 +79,10 @@ export default class PointPresenter {
 
   #replaceFormToPoint() {
     replace(this.#pointComponent, this.#editComponent);
+  }
+
+  #handleFavoriteClick () {
+    this.#handlePointChange({ ...this.#point, isFavorite: !this.#point.isFavorite });
   }
 }
 
