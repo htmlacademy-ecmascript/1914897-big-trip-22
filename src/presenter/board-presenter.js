@@ -37,13 +37,13 @@ export default class BoardPresenter {
 
 
     render(new InfoTripView(), this.#tripInfoElement, RenderPosition.AFTERBEGIN);
-    render(new FilterView({filters: this.#filters}), this.#filterElement);
-    render(new SortView({sortItems: this.#sortItems}), this.#contentTripElement);
+    render(new FilterView({ filters: this.#filters }), this.#filterElement);
+    render(new SortView({ sortItems: this.#sortItems }), this.#contentTripElement);
     this.#renderBoard();
   }
 
   #renderPoint(point, offers, destinations) {
-    const pointPresenter = new PointPresenter({listComponent: this.#listComponent, handlePointChange: this.#handlePointChange});
+    const pointPresenter = new PointPresenter({ listComponent: this.#listComponent, handlePointChange: this.#handlePointChange, handleModeChange: this.#handleModeChange });
     pointPresenter.init(point, offers, destinations);
     this.#pointPresenters.set(point.id, pointPresenter);
   }
@@ -57,6 +57,12 @@ export default class BoardPresenter {
       this.#renderPoint(point, this.#offers, this.#destinations);
     });
   }
+
+  #handleModeChange = () => {
+    this.#pointPresenters.forEach((presenter) => {
+      presenter.resetView();
+    });
+  };
 
   #handlePointChange = (updatedPoint) => {
     this.#points = updateItem(this.#points, updatedPoint);
