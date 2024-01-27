@@ -74,14 +74,14 @@ export default class PointPresenter {
   }
 
   resetView() {
-    if (this.#mode !== Mode.EDITING) {
+    if (this.#mode === Mode.EDITING) {
       this.#replaceFormToPoint();
     }
   }
 
   #replacePointToForm() {
     replace(this.#editComponent, this.#pointComponent);
-    // this.#handleModeChange();
+    this.#handleModeChange();
     this.#mode = Mode.EDITING;
   }
 
