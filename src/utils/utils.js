@@ -36,4 +36,12 @@ function updateItem(items, update) {
   return items.map((item) => item.id === update.id ? update : item);
 }
 
-export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration, isFuture, isPast, isPresent, updateItem };
+function sortPointsTime (pointA, pointB) {
+  return getDatesDifference(pointB.dateFrom, pointA.dateTo) - getDatesDifference(pointA.dateFrom, pointB.dateTo);
+}
+
+function sortPointsPrice (pointA, pointB) {
+  return pointB['basePrice'] - pointA['basePrice'];
+}
+
+export { getRandomNumber, formatDate, getDatesDifference, getDatesDuration, isFuture, isPast, isPresent, updateItem, sortPointsTime, sortPointsPrice };
