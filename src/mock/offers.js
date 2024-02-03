@@ -76,7 +76,13 @@ const offers = [
   },
   {
     'type': 'ship',
-    'offers': []
+    'offers': [
+      {
+        'id': 'b4c3e4e6-9053-42ce-b747-e281314baa50',
+        'title': 'book a table',
+        'price': 50
+      }
+    ]
   },
   {
     'type': 'restaraunt',
