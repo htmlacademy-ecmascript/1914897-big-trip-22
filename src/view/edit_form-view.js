@@ -17,11 +17,10 @@ function createTypeListTemplate(pointType, pointId) {
 }
 
 function createOffersListTemplate(pointOffers, checkedOffers) {
-  if (pointOffers) {
-    return pointOffers.map((offer) => {
-      const checked = checkedOffers.includes(offer.id) ? 'checked' : '';
-      return (
-        `<div class="event__offer-selector">
+  return pointOffers.map((offer) => {
+    const checked = checkedOffers.includes(offer.id) ? 'checked' : '';
+    return (
+      `<div class="event__offer-selector">
         <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${offer.id}" data-offer-id="${offer.id}" type="checkbox" name="event-offer-luggage" ${checked}>
         <label class="event__offer-label" for="event-offer-luggage-${offer.id}">
           <span class="event__offer-title">${offer.title}</span>
@@ -29,10 +28,10 @@ function createOffersListTemplate(pointOffers, checkedOffers) {
           <span class="event__offer-price">${offer.price}</span>
         </label>
       </div>`
-      );
-    }).join('');
-  }
+    );
+  }).join('');
 }
+
 
 function createOffersSectionTemplate(pointOffers, checkedOffers) {
   return (
@@ -211,7 +210,7 @@ export default class EditForm extends AbstractStatefulView {
   };
 
   #onPriceInput = (evt) => {
-    this._setState({ basePrice:  parseInt(evt.currentTarget.value, 10) });
+    this._setState({ basePrice: parseInt(evt.currentTarget.value, 10) });
   };
 
   #onOffersClick = (evt) => {
@@ -276,7 +275,7 @@ export default class EditForm extends AbstractStatefulView {
   }
 
   static parseStateToPoint(state) {
-    const point = {...state};
+    const point = { ...state };
     point.dateFrom = formatDate(state.dateFrom, DateFormats.BASIC);
     point.dateTo = formatDate(state.dateTo, DateFormats.BASIC);
     return point;
