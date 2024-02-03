@@ -73,20 +73,22 @@ export default class PointPresenter {
 
   resetView() {
     if (this.#mode === Mode.EDITING) {
+      this.#editComponent.reset(this.#point);
       this.#replaceFormToPoint();
     }
   }
 
   #replacePointToForm() {
-    replace(this.#editComponent, this.#pointComponent);
     this.#handleModeChange();
     this.#mode = Mode.EDITING;
+    replace(this.#editComponent, this.#pointComponent);
   }
 
   #replaceFormToPoint() {
-    replace(this.#pointComponent, this.#editComponent);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
     this.#mode = Mode.DEFAULT;
+    this.#editComponent.reset(this.#point);
+    replace(this.#pointComponent, this.#editComponent);
   }
 
   #handleFavoriteClick() {
